@@ -38,6 +38,7 @@ class ActivitySerializer(serializers.ModelSerializer):
     class Meta:
         model = Activity
         fields = ['id', 'user', 'activity_type', 'duration_minutes', 'calories_burned', 'performed_at']
+        read_only_fields = ['performed_at']
 
     def get_id(self, obj):
         return str(obj.id)

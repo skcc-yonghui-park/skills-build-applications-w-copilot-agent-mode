@@ -38,6 +38,9 @@ class Activity(models.Model):
     class Meta:
         db_table = 'activities'
 
+    def __str__(self):
+        return f'{self.user.name} - {self.activity_type}'
+
 
 class Leaderboard(models.Model):
     id = models.ObjectIdField(primary_key=True, default=ObjectId, editable=False)
@@ -47,6 +50,9 @@ class Leaderboard(models.Model):
 
     class Meta:
         db_table = 'leaderboard'
+
+    def __str__(self):
+        return f'{self.user.name} - rank {self.rank}'
 
 
 class Workout(models.Model):
@@ -58,3 +64,6 @@ class Workout(models.Model):
 
     class Meta:
         db_table = 'workouts'
+
+    def __str__(self):
+        return f'{self.user.name} - {self.title}'

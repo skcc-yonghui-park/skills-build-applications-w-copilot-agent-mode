@@ -28,19 +28,21 @@ router.register(r'leaderboard', LeaderboardViewSet, basename='leaderboard')
 router.register(r'workouts', WorkoutViewSet, basename='workouts')
 
 
+API_ENDPOINTS = {
+    'users': '/api/users/',
+    'teams': '/api/teams/',
+    'activities': '/api/activities/',
+    'leaderboard': '/api/leaderboard/',
+    'workouts': '/api/workouts/',
+}
+
+
 @api_view(['GET'])
 def api_root(request):
-    return Response(
-        {
-            'users': f'{base_url}/api/users/',
-            'teams': f'{base_url}/api/teams/',
-            'activities': f'{base_url}/api/activities/',
-            'leaderboard': f'{base_url}/api/leaderboard/',
-            'workouts': f'{base_url}/api/workouts/',
-        }
-    )
+    return Response({name: f'{base_url}{path}' for name, path in API_ENDPOINTS.items()})
 
 urlpatterns = [
+    path('', api_root, name='root-api'),
     path('admin/', admin.site.urls),
     path('api/', api_root, name='api-root'),
     path('api/', include(router.urls)),
