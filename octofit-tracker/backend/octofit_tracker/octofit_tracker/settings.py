@@ -26,9 +26,14 @@ SECRET_KEY = 'django-insecure-=zagv2v6c(n@w(!4n7kn+cp9o_)7+cx7k4ry^62vz641k1w&nb
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '*']
-if os.environ.get('CODESPACE_NAME'):
-    ALLOWED_HOSTS.append(f"{os.environ.get('CODESPACE_NAME')}-8000.app.github.dev")
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+codespace_name = os.environ.get('CODESPACE_NAME')
+if codespace_name:
+    codespace_host = f"{codespace_name}-8000.app.github.dev"
+    ALLOWED_HOSTS.append(codespace_host)
+    CSRF_TRUSTED_ORIGINS = [f"https://{codespace_host}"]
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 
 # Application definition
